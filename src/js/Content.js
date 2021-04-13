@@ -54,8 +54,11 @@ class Content extends NycContent {
 	 */
 	locationMsg(location, zone) {
 		const name = location.name.replace(/,/, '<br>')
-		const data = location.data || {}
-		zone = zone || data.hurricaneEvacuationZone
+		// only get zone from zone layer until geosupport is updated
+		if (hurricane.USE_GEOCLIENT) {
+			const data = location.data || {}
+			zone = zone || data.hurricaneEvacuationZone
+		}
 		if (zone) {
 			if (zone === hurricane.SURFACE_WATER_ZONE) {
 				zone = '1'
