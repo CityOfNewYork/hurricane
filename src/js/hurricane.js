@@ -23,7 +23,8 @@ const hurricane = {
   GEOCLIENT_URL: 'https://maps.nyc.gov/geoclient/v1/search.json?app_key=74DF5DB1D7320A9A2&app_id=nyc-lib-example',
   DIRECTIONS_URL: 'https://maps.googleapis.com/maps/api/js?&sensor=false&libraries=visualization',
   SURFACE_WATER_ZONE: '0',
-  NO_ZONE: 'X'
+  NO_ZONE: 'X',
+  USE_GEOCLIENT: true
 }
 
 export default hurricane
