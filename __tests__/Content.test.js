@@ -68,11 +68,11 @@ describe('constructor', () => {
 
 describe('locationMsg', () => {
   beforeEach(() => {
-    hurricane.USE_GEOCLIENT = true;
+    hurricane.USE_GEOCLIENT_ZONE = true;
   })
-  test('not using geoclient', () => {
-    expect.assertions(2)
-    hurricane.USE_GEOCLIENT = false;
+  test('not using geoclient', done => {
+    expect.assertions(3)
+    hurricane.USE_GEOCLIENT_ZONE = false;
 
     fetch.mockResponseOnce(csvMock.twoOrders)
   
@@ -83,8 +83,9 @@ describe('locationMsg', () => {
 
     new Content(content => {
       // no message returned from geosupport data until geosupport is updated
-      expect(hurricane.USE_GEOCLIENT).toBe(false)
+      expect(hurricane.USE_GEOCLIENT_ZONE).toBe(false)
       expect(content.locationMsg(location)).toBeUndefined()
+      expect(content.locationMsg(location, '3')).toBe('<h2>You are located in Zone 3<br><div class="order active">You are required to evacuate</div></h2><div class="notranslate" translate="no">59 Maiden Lane<br> New York</div>')
       done()
     })
   })
@@ -100,7 +101,7 @@ describe('locationMsg', () => {
 
     new Content(content => {
       // no message returned from geosupport data until geosupport is updated
-      expect(hurricane.USE_GEOCLIENT).toBe(true)
+      expect(hurricane.USE_GEOCLIENT_ZONE).toBe(true)
       expect(content.locationMsg(location)).toBe('<h2>You are located in Zone 3<br><div class="order active">You are required to evacuate</div></h2><div class="notranslate" translate="no">59 Maiden Lane<br> New York</div>')
       done()
     })
@@ -168,7 +169,7 @@ describe('locationMsg', () => {
 
     new Content(content => {
       // no message returned from geosupport data until geosupport is updated
-      expect(hurricane.USE_GEOCLIENT).toBe(true)
+      expect(hurricane.USE_GEOCLIENT_ZONE).toBe(true)
       expect(content.locationMsg(location)).toBe('<h2>You are not located in an Evacuation Zone</h2><div class="notranslate" translate="no">59 Maiden Lane<br> New York</div>')
       done()
     })
@@ -186,7 +187,7 @@ describe('locationMsg', () => {
 
     new Content(content => {
       // no message returned from geosupport data until geosupport is updated
-      expect(hurricane.USE_GEOCLIENT).toBe(true)
+      expect(hurricane.USE_GEOCLIENT_ZONE).toBe(true)
       expect(content.locationMsg(location)).toBe('<h2>You are located in Zone 1<br><div class="order active">You are required to evacuate</div></h2><div class="notranslate" translate="no">59 Maiden Lane<br> New York</div>')
       done()
     })
@@ -204,14 +205,14 @@ describe('locationMsg', () => {
 
     new Content(content => {
       // no message returned from geosupport data until geosupport is updated
-      expect(hurricane.USE_GEOCLIENT).toBe(true)
+      expect(hurricane.USE_GEOCLIENT_ZONE).toBe(true)
       expect(content.locationMsg(location, '5')).toBe('<h2>You are located in Zone 5<br><div class="order">No evacuation order currently in effect</div></h2><div class="notranslate" translate="no">59 Maiden Lane<br> New York</div>')
       done()
     })
   })
 })
 
-test('unkownZone', () => {
+test('unkownZone', done => {
   expect.assertions(1)
   
   fetch.mockResponseOnce(csvMock.twoOrders)
