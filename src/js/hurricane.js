@@ -24,7 +24,8 @@ const hurricane = {
   DIRECTIONS_URL: 'https://maps.googleapis.com/maps/api/js?&sensor=false&libraries=visualization',
   SURFACE_WATER_ZONE: '0',
   NO_ZONE: 'X',
-  USE_GEOCLIENT_ZONE: true
+  USE_GEOCLIENT_ZONE: true,
+  IS_311: document.location.href.indexOf('?311') > -1
 }
 
 export default hurricane

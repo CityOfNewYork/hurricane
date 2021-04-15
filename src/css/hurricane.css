@@ -106,7 +106,7 @@ p {
   background-size: 13px;
 }
 .facility.acc .name:before {
-  margin: -2px 2px -2px 0;
+  margin: -3px 2px -2px 0;
 }
 .fnd .btn.dtl:before {
   margin: -2px 3px; 

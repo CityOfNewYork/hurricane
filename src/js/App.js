@@ -375,6 +375,9 @@ class App extends FinderApp {
    */
   ready(features) {
     super.ready(features)
+    if (hurricane.IS_311) {
+      this.tabs.open('#facilities')
+    }
     const div = $(this.map.getTargetElement())
     const i = setInterval(() => {
       if ($('div.shr').length) {

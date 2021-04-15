@@ -1,0 +1,138 @@
+import FinderApp from 'nyc-lib/nyc/ol/FinderApp'
+import CsvPoint from 'nyc-lib/nyc/ol/format/CsvPoint'
+import Decorate from 'nyc-lib/nyc/ol/format/Decorate'
+import FeatureTip from 'nyc-lib/nyc/ol/FeatureTip'
+import App from '../src/js/App'
+import Content from './Content.mock'
+import hurricane from '../src/js/hurricane'
+import style from '../src/js/style'
+import decorations from '../src/js/decorations'
+import Slider from 'nyc-lib/nyc/Slider'
+import Share from 'nyc-lib/nyc/Share'
+import $, { ready } from 'jquery'
+
+jest.mock('nyc-lib/nyc/ol/FeatureTip')
+jest.mock('nyc-lib/nyc/Slider')
+jest.mock('nyc-lib/nyc/Share')
+
+let legend
+const adjustTabs = App.prototype.adjustTabs
+const tabChange = App.prototype.tabChange
+beforeEach(() => {
+  $.resetMocks()
+  App.prototype.adjustTabs = jest.fn()
+  App.prototype.tabChange = jest.fn()
+  legend = $('<div id="legend"><div class="leg-sw zone"></div></div>')
+  $('body').append(legend)
+  FeatureTip.mockReset()
+  Slider.mockReset()
+  Share.mockReset()
+})
+afterEach(() => {
+  App.prototype.adjustTab = adjustTabs
+  App.prototype.tabChange = tabChange
+  $('body').empty()
+})
+
+
+describe('constructor/ready', () => {
+  const is311 = hurricane.IS_311
+  const ready = App.prototype.ready
+
+  beforeEach(() => {
+    hurricane.IS_311 = true
+    App.prototype.ready = () => {}
+  })
+  afterEach(() => {
+    hurricane.IS_311 = is311
+    App.prototype.ready = ready
+  })
+
+
+  test('constructor/ready', done => {
+    expect.assertions(47)
+      
+    const content = new Content()
+    const app = new App(content)
+  
+    expect(app instanceof App).toBe(true)
+    expect(app instanceof FinderApp).toBe(true)
+  
+    expect(app.content).toBe(content)
+  
+    expect(app.layer.getSource()).toBe(app.source)
+    expect(app.layer.getStyle()).toBe(style.center)
+    expect(app.layer.getZIndex()).toBe(1)
+    expect(app.source.getUrl()).toBe(hurricane.CENTER_URL)
+  
+    expect(app.source.getFormat() instanceof Decorate).toBe(true)
+    expect(app.source.getFormat().decorations.length).toBe(4)
+    expect(app.source.getFormat().decorations[0]).toBe(FinderApp.FEATURE_DECORATIONS)  
+    expect(app.source.getFormat().decorations[1].app).toBe(app)
+    expect(app.source.getFormat().decorations[2].content).toBe(content)
+    expect(app.source.getFormat().decorations[3]).toBe(decorations.center)
+  
+    expect(app.source.getFormat().parentFormat instanceof CsvPoint).toBe(true)
+    expect(app.source.getFormat().parentFormat.dataProjection.getCode()).toBe('EPSG:2263')
+    expect(app.source.getFormat().parentFormat.x).toBe('X')
+    expect(app.source.getFormat().parentFormat.y).toBe('Y')
+  
+    expect(app.tabs.find('.btn-0').html()).toBe('Map')
+    expect(app.tabs.find('.btn-1').html()).toBe(content.message('centers_tab'))
+    expect(app.tabs.find('.btn-2').html()).toBe('Legend')
+  
+    expect(app.tabs.tabs.find('.tab-0').get(0)).toBe($('#map').get(0))
+    expect(app.tabs.tabs.find('.tab-1').get(0)).toBe($('#facilities').get(0))
+    expect(app.tabs.tabs.find('.tab-2').get(0)).toBe($('#legend').get(0))
+  
+    expect(app.filters.choiceControls.length).toBe(1)
+    expect(app.filters.choiceControls[0].radio).toBe(true)
+    expect(app.filters.choiceControls[0].choices.length).toBe(2)
+  
+    expect(app.filters.choiceControls[0].choices[0].label).toBe(`All ${content.message('filter_centers')}`)
+    expect(app.filters.choiceControls[0].choices[0].name).toBe('ACCESSIBLE')
+    expect(app.filters.choiceControls[0].choices[0].values).toEqual(['N', 'Y'])
+    expect(app.filters.choiceControls[0].choices[0].checked).toBe(true)
+  
+    expect(app.filters.choiceControls[0].choices[1].label).toBe(`<div></div>Only accessible ${content.message('filter_centers')}`)
+    expect(app.filters.choiceControls[0].choices[1].name).toBe('ACCESSIBLE')
+    expect(app.filters.choiceControls[0].choices[1].values).toEqual(['Y'])
+    expect(app.filters.choiceControls[0].choices[1].checked).not.toBe(true)
+  
+    expect(app.zoneLayer.getSource()).toBe(app.zoneSource)
+    expect(app.zoneLayer.getStyle()).toBe(style.zone)
+    expect(app.zoneLayer.getOpacity()).toBe(.35)
+    expect(app.zoneSource.getUrl()).toBe(hurricane.ZONE_URL)  
+  
+    const layers = app.map.getLayers().getArray()
+  
+    expect(layers[layers.length - 1]).toBe(app.zoneLayer)
+  
+    const mockFeature = {
+      content: {
+        message: jest.fn(() => {return 'mock-html'}),
+        zoneMsg: jest.fn(() => {return 'mock-order'})
+      },
+      getZone: jest.fn(() => {return 'mock-zone'})
+    }
+  
+    const label = FeatureTip.mock.calls[2][0].tips[0].label(mockFeature)
+  
+    expect(label.css).toBe('zone')
+    expect(label.html).toBe('mock-html')
+    expect(mockFeature.content.message).toHaveBeenCalledTimes(1)
+    expect(mockFeature.content.message.mock.calls[0][0]).toBe('zone_tip')
+    expect(mockFeature.content.message.mock.calls[0][1].zone).toBe('mock-zone')
+    expect(mockFeature.content.message.mock.calls[0][1].order).toBe('mock-order')
+  
+    app.tabs.open = jest.fn()
+    app.ready = ready
+    app.ready([])
+  
+    setTimeout(() => {
+      expect(app.tabs.open).toHaveBeenCalledTimes(1)
+      expect(app.tabs.open.mock.calls[0][0]).toBe('#facilities')
+      done()
+    }, 2000)
+  })
+})
