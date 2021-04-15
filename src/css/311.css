@@ -35,6 +35,9 @@ top: 0;
     box-shadow: none;
 }
 
+.active-order .pop {
+	top: 174px;
+}
 
 .pop:before,
 .pop:after {
@@ -56,6 +59,11 @@ display: none;
     height: calc(100% - 320px);
 }
 
+.active-order .tabs .lst-pg {
+    top: 344px;
+}
+
+
 #tabs .btns,
 #tabs .btn,
 .fnd #map.tab .zoom,
@@ -69,10 +77,42 @@ display: none;
   display: none !important;
 }
 
-#tabs .btn.dtl {
+#tabs .btn.dtl,
+#tabs .btn-more {
   display: block !important;
 }
+
+#tabs .btn-more {
+    position: fixed;
+    margin: -65px 5px;
+}
+
 *:focus, .focused, 
 .tab.active:focus {
   box-shadow: none;
+}
+
+.srch-ctl {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+}
+
+#facilities .note {
+  margin: 50px 5px 5px 5px;
+  position: fixed;
+}
+
+#acc-filter {
+  position: fixed;
+  top: 275px;
+  width: calc(100% - 10px);
+}
+
+.active-order #acc-filter {
+  top: 299px;
+}
+
+.active-order .lst-pg .list {
+  height: calc(100% - 74px);
 }
