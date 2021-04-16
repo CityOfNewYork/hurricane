@@ -395,11 +395,24 @@ class App extends FinderApp {
    * @method
    * @return {boolean}
    */
-  isMobile() {
+   isMobile() {
     if (hurricane.IS_311) {
       return true
     }
     return super.isMobile()
+  }
+  /**
+   * @access protected
+   * @override
+   * @method
+   */
+  resetList() {
+    const hide = this.popup.hide
+    if ($('.pop .facility').length === 0) {
+      this.popup.hide = () => {}
+    }
+    super.resetList()
+    this.popup.hide = hide
   }
 }
 
