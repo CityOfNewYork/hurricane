@@ -77,6 +77,10 @@ display: none;
   display: none !important;
 }
 
+#tabs .srch-ctl .btn-x {
+	display: inline-block !important;
+}
+
 #tabs .btn.dtl,
 #tabs .btn-more {
   display: block !important;
