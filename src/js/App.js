@@ -23,7 +23,7 @@ import OlGeomPoint from 'ol/geom/Point'
 import OlFormatTopoJSON from 'ol/format/TopoJSON'
 import OlSourceVector from 'ol/source/Vector'
 import OlLayerVector from 'ol/layer/Vector'
-import MapMgr from 'nyc-lib/nyc/ol/MapMgr';
+import Dialog from 'nyc-lib/nyc/Dialog';
 
 class App extends FinderApp {
   /**
@@ -159,6 +159,9 @@ class App extends FinderApp {
       tabs.one('change', () => {
         popup.pan()
       })
+      if (this.isMobile()) {
+        new Dialog({css: 'zone-msg'}).ok({message: html})
+      }
     } else {
       popNode.find('.btn-x').one('click', () => {
         tabs.open('#facilities')
