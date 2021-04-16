@@ -9,6 +9,7 @@ import style from '../src/js/style'
 import decorations from '../src/js/decorations'
 import Slider from 'nyc-lib/nyc/Slider'
 import Share from 'nyc-lib/nyc/Share'
+import OlFeature from 'ol/Feature'
 import $, { ready } from 'jquery'
 
 jest.mock('nyc-lib/nyc/ol/FeatureTip')
@@ -18,10 +19,15 @@ jest.mock('nyc-lib/nyc/Share')
 let legend
 const adjustTabs = App.prototype.adjustTabs
 const tabChange = App.prototype.tabChange
+const is311 = hurricane.IS_311
+const showSplash = App.prototype.showSplash
+
 beforeEach(() => {
   $.resetMocks()
+  hurricane.IS_311 = true
   App.prototype.adjustTabs = jest.fn()
   App.prototype.tabChange = jest.fn()
+  App.prototype.showSplash = jest.fn()
   legend = $('<div id="legend"><div class="leg-sw zone"></div></div>')
   $('body').append(legend)
   FeatureTip.mockReset()
@@ -29,25 +35,22 @@ beforeEach(() => {
   Share.mockReset()
 })
 afterEach(() => {
+  hurricane.IS_311 = is311
   App.prototype.adjustTab = adjustTabs
   App.prototype.tabChange = tabChange
+  App.prototype.showSplash = showSplash
   $('body').empty()
 })
 
-
 describe('constructor/ready', () => {
-  const is311 = hurricane.IS_311
   const ready = App.prototype.ready
 
   beforeEach(() => {
-    hurricane.IS_311 = true
     App.prototype.ready = () => {}
   })
   afterEach(() => {
-    hurricane.IS_311 = is311
     App.prototype.ready = ready
   })
-
 
   test('constructor/ready', done => {
     expect.assertions(47)
@@ -134,5 +137,130 @@ describe('constructor/ready', () => {
       expect(app.tabs.open.mock.calls[0][0]).toBe('#facilities')
       done()
     }, 2000)
+  })
+})
+
+test('isMobile', () => {
+  expect.assertions(2)
+  
+  const content = new Content()    
+  
+  const app = new App(content)
+
+  $('#tabs .btns>h2:first-of-type').hide()
+
+  expect(app.isMobile()).toBe(true)
+
+  $('#tabs .btns>h2:first-of-type').show()
+
+  expect(app.isMobile()).toBe(true)
+
+})
+
+describe('located', () => {
+  const resetList = FinderApp.prototype.resetList
+  const isMobile = App.prototype.isMobile
+  
+  beforeEach(() => {
+    App.prototype.isMobile = () => {return true}
+    FinderApp.prototype.resetList = jest.fn()
+  })
+  afterEach(() => {
+    FinderApp.prototype.resetList = resetList
+    App.prototype.isMobile = isMobile
+  })
+
+  test('located - facility tab is active, not mobile', () => {
+    expect.assertions(13)
+    
+    const content = new Content()
+    const app = new App(content)
+  
+    app.locationMsg = jest.fn(() => {
+      return 'mock-html'
+    })
+      
+    const pop = $(app.popup.getElement())
+    
+    app.popup.showFeatures = jest.fn(() => {
+      pop.find('.content').append('<h2></h2>').show()
+    })
+    app.popup.pan = jest.fn()
+
+    const location = {coordinate: [1, 2]}
+  
+    app.tabs.active = $('#facilities')
+    
+    app.located(location)
+  
+    app.tabs.trigger('change')
+    expect(app.popup.pan).toHaveBeenCalledTimes(1)
+  
+    expect(FinderApp.prototype.resetList).toHaveBeenCalledTimes(1)
+    expect(app.location).toBe(location)
+
+    expect(app.locationMsg).toHaveBeenCalledTimes(1)
+    expect(app.locationMsg.mock.calls[0][0]).toBe(location)
+  
+    expect(app.popup.showFeatures).toHaveBeenCalledTimes(1)
+    expect(app.popup.showFeatures.mock.calls[0][0].length).toBe(1)
+    expect(app.popup.showFeatures.mock.calls[0][0][0] instanceof OlFeature).toBe(true)
+    expect(app.popup.showFeatures.mock.calls[0][0][0].getGeometry().getCoordinates()).toEqual(location.coordinate)
+    expect(app.popup.showFeatures.mock.calls[0][0][0].html()).toBe('mock-html')
+      
+    expect(document.activeElement).toBe(pop.find('h2').get(0))
+    expect(pop.find('h2').attr('tabindex')).toBe('0')
+  
+    app.tabs.open = jest.fn()
+    pop.find('.btn-x').trigger('click')
+  
+    expect(app.tabs.open).toHaveBeenCalledTimes(0)
+  })
+
+  test('located - facility tab is active, is mobile', () => {
+    expect.assertions(13)
+    
+    const content = new Content()
+    const app = new App(content)
+  
+    app.locationMsg = jest.fn(() => {
+      return 'mock-html'
+    })
+      
+    const pop = $(app.popup.getElement())
+    
+    app.popup.showFeatures = jest.fn(() => {
+      pop.find('.content').append('<h2></h2>').show()
+    })
+    app.popup.pan = jest.fn()
+
+    const location = {coordinate: [1, 2]}
+  
+    app.tabs.active = $('#facilities')
+        
+    app.located(location)
+  
+    app.tabs.trigger('change')
+    expect(app.popup.pan).toHaveBeenCalledTimes(1)
+  
+    expect(FinderApp.prototype.resetList).toHaveBeenCalledTimes(1)
+    expect(app.location).toBe(location)
+
+    expect(app.locationMsg).toHaveBeenCalledTimes(1)
+    expect(app.locationMsg.mock.calls[0][0]).toBe(location)
+  
+    expect(app.popup.showFeatures).toHaveBeenCalledTimes(1)
+    expect(app.popup.showFeatures.mock.calls[0][0].length).toBe(1)
+    expect(app.popup.showFeatures.mock.calls[0][0][0] instanceof OlFeature).toBe(true)
+    expect(app.popup.showFeatures.mock.calls[0][0][0].getGeometry().getCoordinates()).toEqual(location.coordinate)
+    expect(app.popup.showFeatures.mock.calls[0][0][0].html()).toBe('mock-html')
+      
+    expect(document.activeElement).toBe(pop.find('h2').get(0))
+    expect(pop.find('h2').attr('tabindex')).toBe('0')
+  
+    app.tabs.open = jest.fn()
+    pop.find('.btn-x').trigger('click')
+  
+    expect(app.tabs.open).toHaveBeenCalledTimes(0)
   })
 })

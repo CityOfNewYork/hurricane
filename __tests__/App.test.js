@@ -182,10 +182,14 @@ describe('constructor/ready', () => {
 
 describe('located', () => {
   const resetList = FinderApp.prototype.resetList
+  const is311 = hurricane.IS_311
+
   beforeEach(() => {
+    hurricane.IS_311 = false
     FinderApp.prototype.resetList = jest.fn()
   })
   afterEach(() => {
+    hurricane.IS_311 = is311
     FinderApp.prototype.resetList = resetList
   })
 
@@ -861,4 +865,21 @@ test('buffer', () => {
   const app = new App(content)
 
   expect(app.buffer([0, 0, 0, 0], 1)).toEqual([-1, -1, 1, 1])
+})
+
+test('isMobile', () => {
+  expect.assertions(2)
+  
+  const content = new Content()    
+  
+  const app = new App(content)
+
+  $('#tabs .btns>h2:first-of-type').hide()
+
+  expect(app.isMobile()).toBe(false)
+
+  $('#tabs .btns>h2:first-of-type').show()
+
+  expect(app.isMobile()).toBe(true)
+
 })

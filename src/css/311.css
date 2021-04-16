@@ -85,11 +85,24 @@ display: none;
 #tabs .btn-more {
     position: fixed;
     margin: -65px 5px;
+    bottom: 75px;
 }
 
 *:focus, .focused, 
 .tab.active:focus {
   box-shadow: none;
+}
+
+.fnd .lst-srch .srch {
+    display: block;
+    border-bottom: 1px solid var(--color-dark);
+    background-color: var(--color-dark);
+    width: 100%;
+}
+
+.fnd .lst-srch .srch input {
+    width: calc(100% - 65px);
+    margin: 5px;
 }
 
 .srch-ctl {
@@ -115,4 +128,15 @@ display: none;
 
 .active-order .lst-pg .list {
   height: calc(100% - 74px);
+}
+
+h2.alert {
+	left: 0;
+}
+
+.alert div>div>div {
+	animation: none !important;
+	text-align: center;
+	width: 100%;
+	left: 0;
 }

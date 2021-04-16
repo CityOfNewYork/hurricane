@@ -159,7 +159,7 @@ class App extends FinderApp {
       tabs.one('change', () => {
         popup.pan()
       })
-      if (this.isMobile()) {
+      if (this.isMobile() && !hurricane.IS_311) {
         new Dialog({css: 'zone-msg'}).ok({message: html})
       }
     } else {
@@ -388,6 +388,18 @@ class App extends FinderApp {
         clearInterval(i)
       }
     }, 500)
+  }
+  /**
+   * @access protected
+   * @override
+   * @method
+   * @return {boolean}
+   */
+  isMobile() {
+    if (hurricane.IS_311) {
+      return true
+    }
+    return super.isMobile()
   }
 }
 
