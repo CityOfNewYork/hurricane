@@ -883,3 +883,37 @@ test('isMobile', () => {
   expect(app.isMobile()).toBe(true)
 
 })
+
+describe('resetList', () => {
+  test('resetList - popup length 1', () => {
+    expect.assertions(2)
+
+    const content = new Content()    
+  
+    const app = new App(content)
+
+    app.popup.show({
+      html: '<div class="facility"></div>',
+      coordinate: [1, 1]
+    })
+    app.popup.hide = jest.fn()
+
+    app.resetList()
+    expect($('.pop .facility').length).toBe(1)
+    expect(app.popup.hide).toHaveBeenCalledTimes(1)
+  })
+  
+  test('resetList - popup length 0', () => {
+    expect.assertions(2)
+
+    const content = new Content()    
+  
+    const app = new App(content)
+
+    app.popup.hide = jest.fn()
+
+    app.resetList()
+    expect($('.pop .facility').length).toBe(0)
+    expect(app.popup.hide).toHaveBeenCalledTimes(0)
+  })
+})
