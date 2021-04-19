@@ -81,6 +81,13 @@ display: none;
 	display: inline-block !important;
 }
 
+#tabs .srch .btn-x {
+  display: none;
+  position: absolute;
+  left: calc(100% - 34px);
+  top: 10px;
+  z-index: 2;
+}
 #tabs .btn.dtl,
 #tabs .btn-more {
   display: block !important;
