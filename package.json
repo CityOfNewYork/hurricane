@@ -1,6 +1,6 @@
 {
   "name": "hurricane",
-  "version": "2.0.45",
+  "version": "2.0.46",
   "description": "NYCEM Hurricane Evacuation Zone Finder",
   "main": "index.js",
   "scripts": {
