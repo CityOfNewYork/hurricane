@@ -9,7 +9,7 @@ module.exports = require('nyc-build-helper').config.defaultWebpackConfig(
       dir: 'dist',
       files: ['mta.html'],
       rules: [{
-        search: /http\:/,
+        search: /http\:/g,
         replace: ''
       }]
     }]
