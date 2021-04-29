@@ -40,9 +40,12 @@ const accessibleCenter = new OlFeature({
 $.extend(accessibleCenter, decorations.center, {content: content, app: app})
 
 const notWaterZone = new OlFeature({zone: '1'})
-$.extend(notWaterZone, decorations.zone, {content: content})
+$.extend(notWaterZone, decorations.zone, decorations.isSurfaceWaterZone, decorations.isNoZone, {content: content})
 
 const waterZone = new OlFeature({zone: '0'})
-$.extend(waterZone, decorations.zone, {content: content})
+$.extend(waterZone, decorations.zone, decorations.isSurfaceWaterZone, decorations.isNoZone, {content: content})
 
-module.exports = {app, notAccessibleCenter, accessibleCenter, notWaterZone, waterZone}
+const noZoneZone = new OlFeature({zone: 'X'})
+$.extend(noZoneZone, decorations.zone, decorations.isSurfaceWaterZone, decorations.isNoZone, {content: content})
+
+module.exports = {app, notAccessibleCenter, accessibleCenter, notWaterZone, waterZone, noZoneZone}

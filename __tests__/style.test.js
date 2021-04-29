@@ -45,21 +45,21 @@ describe('zone style', () => {
     expect.assertions(6)
 
     notWaterZone.set('zone', '1')
-    expect(style.zone(notWaterZone).getFill().getColor()).toBe(`rgb(${style.zoneColors['1']})`)
+    expect(style.zone(notWaterZone).getFill().getColor()).toBe(style.zoneColors['1'])
 
     notWaterZone.set('zone', '2')
-    expect(style.zone(notWaterZone).getFill().getColor()).toBe(`rgb(${style.zoneColors['2']})`)
+    expect(style.zone(notWaterZone).getFill().getColor()).toBe(style.zoneColors['2'])
 
     notWaterZone.set('zone', '3')
-    expect(style.zone(notWaterZone).getFill().getColor()).toBe(`rgb(${style.zoneColors['3']})`)
+    expect(style.zone(notWaterZone).getFill().getColor()).toBe(style.zoneColors['3'])
 
     notWaterZone.set('zone', '4')
-    expect(style.zone(notWaterZone).getFill().getColor()).toBe(`rgb(${style.zoneColors['4']})`)
+    expect(style.zone(notWaterZone).getFill().getColor()).toBe(style.zoneColors['4'])
 
     notWaterZone.set('zone', '5')
-    expect(style.zone(notWaterZone).getFill().getColor()).toBe(`rgb(${style.zoneColors['5']})`)
+    expect(style.zone(notWaterZone).getFill().getColor()).toBe(style.zoneColors['5'])
   
     notWaterZone.set('zone', '6')
-    expect(style.zone(notWaterZone).getFill().getColor()).toBe(`rgb(${style.zoneColors['6']})`)
+    expect(style.zone(notWaterZone).getFill().getColor()).toBe(style.zoneColors['6'])
   })
 })

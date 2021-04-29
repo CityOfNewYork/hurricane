@@ -255,12 +255,14 @@ class App extends FinderApp {
         layer: this.zoneLayer,
         label: (feature) => {
           const zone = feature.getZone()
-          return {
-            css: 'zone',
-            html: feature.content.message('zone_tip', {
-              zone: zone,
-              order: feature.content.zoneMsg(zone)
-            })
+          if (!feature.isNoZone()) {
+            return {
+              css: 'zone',
+              html: feature.content.message('zone_tip', {
+                zone: zone,
+                order: feature.content.zoneMsg(zone)
+              })
+            }
           }
         }
       }]

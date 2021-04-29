@@ -112,6 +112,8 @@ describe('constructor/ready', () => {
     expect(layers[layers.length - 1]).toBe(app.zoneLayer)
   
     const mockFeature = {
+      isNoZone: jest.fn(),
+      isSurfaceWaterZone: jest.fn(),
       content: {
         message: jest.fn(() => {return 'mock-html'}),
         zoneMsg: jest.fn(() => {return 'mock-order'})

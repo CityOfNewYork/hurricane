@@ -69,8 +69,11 @@ const decorations = {
     isSurfaceWater() {
       return this.getZone() === hurricane.SURFACE_WATER_ZONE
     },
+    isNoZone() {
+      return this.getZone() === hurricane.NO_ZONE
+    },
     html() {
-      if (!this.isSurfaceWater()) {
+      if (!this.isSurfaceWater() && !this.isNoZone()) {
         const content = this.content
         const zone = this.getZone()
         return content.message('zone_info', {zone: zone, order: content.zoneMsg(zone)})
