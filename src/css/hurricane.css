@@ -392,3 +392,7 @@ background-image: url("../img/fade.svg");
 .lst-srch ul li {
   margin-right: 42px;
 }
+
+.ol-overlay-container.ol-selectable {
+  position: unset !important;
+}
