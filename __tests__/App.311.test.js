@@ -11,6 +11,7 @@ import Slider from 'nyc-lib/nyc/Slider'
 import Share from 'nyc-lib/nyc/Share'
 import OlFeature from 'ol/Feature'
 import $, { ready } from 'jquery'
+import {notWaterZone} from './features.mock'
 
 jest.mock('nyc-lib/nyc/ol/FeatureTip')
 jest.mock('nyc-lib/nyc/Slider')
@@ -111,15 +112,12 @@ describe('constructor/ready', () => {
   
     expect(layers[layers.length - 1]).toBe(app.zoneLayer)
   
-    const mockFeature = {
-      isNoZone: jest.fn(),
-      isSurfaceWaterZone: jest.fn(),
-      content: {
-        message: jest.fn(() => {return 'mock-html'}),
-        zoneMsg: jest.fn(() => {return 'mock-order'})
-      },
-      getZone: jest.fn(() => {return 'mock-zone'})
+    const mockFeature = notWaterZone
+    mockFeature.content = {
+      message: jest.fn(() => {return 'mock-html'}),
+      zoneMsg: jest.fn(() => {return 'mock-order'})
     }
+    mockFeature.getZone = jest.fn(() => {return 'mock-zone'})
   
     const label = FeatureTip.mock.calls[2][0].tips[0].label(mockFeature)
   
