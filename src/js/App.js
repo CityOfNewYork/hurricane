@@ -25,11 +25,6 @@ import OlSourceVector from 'ol/source/Vector'
 import OlLayerVector from 'ol/layer/Vector'
 import Dialog from 'nyc-lib/nyc/Dialog';
 
-import TripPlanHack from 'nyc-lib/nyc/mta/TripPlanHack'
-TripPlanHack.prototype.getUrl = () => {
-  return './mta.html'
-}
-
 class App extends FinderApp {
   /**
    * @desc Create an instance of App
