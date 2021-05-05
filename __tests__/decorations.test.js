@@ -46,6 +46,11 @@ describe('center decorations', () => {
     expect(accessibleCenter.getCityStateZip()).toBe('Bellerose, NY 11426')
   })
 
+  test('getFullAddress', () => {
+    expect.assertions(1)
+    expect(accessibleCenter.getFullAddress()).toBe('74-20 Commonwealth Blvd,\nBellerose, NY 11426')
+  })
+
   test('detailsHtml', () => {
     expect.assertions(2)
 
