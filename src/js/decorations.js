@@ -32,6 +32,9 @@ const decorations = {
     getCityStateZip() {
       return `${this.get('CITY')}, NY ${this.get('ZIP_CODE')}`
     },
+    getFullAddress() {
+      return `${this.getAddress1()},\n${this.getCityStateZip()}`
+    },
     isAccessible() {
       return this.get('ACCESSIBLE') === 'Y'
     },
