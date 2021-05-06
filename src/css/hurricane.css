@@ -1,3 +1,9 @@
+@import "nyc-ol-lib.css";
+@import "ol.finderapp.css";
+@import "rtl.ol.finderapp.css";
+@import "nyc-ol-lib.css";
+@import "ol.finderapp.css";
+@import "rtl.ol.finderapp.css";
 .loading #legend {
   display: none;
 }
@@ -392,7 +398,19 @@ background-image: url("../img/fade.svg");
 .lst-srch ul li {
   margin-right: 42px;
 }
-
-.ol-overlay-container.ol-selectable {
-  position: unset !important;
+#banner * {
+  text-transform: capitalize;
+}
+.fnd .splash .dia {
+  height: 185px;
+}
+.fnd .splash a.btn-yes {
+	width: calc(100% - 57px) !important;
+}
+.fnd .splash a.btn-no {
+	width: calc(100% - 32px) !important;
+	margin-top: 8px !important;
+}
+.fnd .splash #lng div.btn {
+	width: calc(100% - 82px) !important;
 }
