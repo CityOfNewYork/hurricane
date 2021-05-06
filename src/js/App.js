@@ -51,6 +51,7 @@ class App extends FinderApp {
       decorations: [{content: content}, decorations.center],
       filterChoiceOptions: [{
         radio: true,
+        toggle: true,
         choices: [
           {name: 'ACCESSIBLE', values: ['N', 'Y'], label: `All ${centers}`, checked: true},
           {name: 'ACCESSIBLE', values: ['Y'], label: `<div></div>Only accessible ${centers}`}
