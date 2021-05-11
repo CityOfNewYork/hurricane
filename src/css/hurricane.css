@@ -101,15 +101,6 @@ p {
 .fnd .facility.acc button.btn {
   width: calc(33% - 2px);
 }
-.acc button.map {
-  padding-left: 12px;
-}
-.acc button.dir {
-  padding-left: 20px !important;
-}
-.acc button.dtl {
-  padding-right: 18px;
-}
 .fnd .btn.map {
   background-position: 0;
 }
@@ -249,18 +240,7 @@ background-image: url("../img/fade.svg");
   padding: 5px 10px; 
 }
 
-@media only screen and (max-width : 480px) {
-  .fnd #banner>div {
-    font-size: 3vw;
-    line-height: 3vw;
-  }
-}
 
-@media only screen and (max-width : 459px) {
-  .ACCESSIBLE-1 label {
-    line-height: 17px;
-  }
-}
 .active-order .dia-container.splash, .fnd.active-order #tabs, .active-order #directions .tabs {
   top: 60px;
 }
