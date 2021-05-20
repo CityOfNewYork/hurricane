@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "jquery": "^3.5.0",
-    "nyc-lib": "^1.4.39",
+    "nyc-lib": "^1.4.40",
     "ol": "^6.5.0",
     "papaparse": "^4.5.1",
     "proj4": "^2.4.4"
