@@ -371,4 +371,5 @@ background-image: url("../img/fade.svg");
   height: auto;
   padding: 3px 0;
   margin-top: 6px;
+  min-height: 29px;
 }
