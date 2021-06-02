@@ -1,6 +1,6 @@
 {
   "name": "hurricane",
-  "version": "2.0.64",
+  "version": "2.0.65",
   "description": "NYCEM Hurricane Evacuation Zone Finder",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "jquery": "^3.5.0",
-    "nyc-lib": "^1.4.40",
+    "nyc-lib": "^1.4.41",
     "ol": "^6.5.0",
     "papaparse": "^4.5.1",
     "proj4": "^2.4.4"

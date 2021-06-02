@@ -33,11 +33,6 @@ p {
 .fnd .splash .dia-msg * {
   text-align: center;
 }
-.fnd .splash .dia .btn {
-  width: auto;
-  height: auto;
-  padding: 5px;
-}
 .tabs .btns button.btn.active:focus {
   color: black;
 }
@@ -234,13 +229,6 @@ background-image: url("../img/fade.svg");
 .fnd .srch {
   right: 41px;
 }
-
-.fnd .splash .dia a.btn-yes, .fnd .splash .dia a.btn-no {
-  width: 320px;
-  padding: 5px 10px; 
-}
-
-
 .active-order .dia-container.splash, .fnd.active-order #tabs, .active-order #directions .tabs {
   top: 60px;
 }
@@ -361,16 +349,6 @@ background-image: url("../img/fade.svg");
 .fnd .splash .dia {
   height: 185px;
 }
-.fnd .splash a.btn-yes {
-	width: calc(100% - 57px) !important;
-}
-.fnd .splash a.btn-no {
-	width: calc(100% - 32px) !important;
-	margin-top: 8px !important;
-}
-.fnd .splash #lng div.btn {
-	width: calc(100% - 82px) !important;
-}
 
 /* when translating back to english, tab headers are not applying text transform. below css fixes it */
 .translated .btn {
@@ -380,4 +358,17 @@ background-image: url("../img/fade.svg");
 .fnd .facility .btn {
   display: inline-block;
   margin: 5px 3px 0 0;
+}
+
+.fnd .splash .btn-yes {
+  width: calc(100% - 40px) !important;
+}
+.fnd .splash #lng .btn {
+  width: calc(100% - 76px) !important;
+}
+.fnd .splash .btn-no {
+  width: calc(100% - 7px) !important;
+  height: auto;
+  padding: 3px 0;
+  margin-top: 6px;
 }
