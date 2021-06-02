@@ -18,7 +18,7 @@
     "jquery": "^3.5.0",
     "nyc-lib": "^1.4.41",
     "ol": "^6.5.0",
-    "papaparse": "^4.5.1",
+    "papaparse": "^5.2.0",
     "proj4": "^2.4.4"
   },
   "devDependencies": {
