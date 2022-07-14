@@ -32,12 +32,12 @@ $.resetMocks = () => {
     else if (typeof arg1 === 'function') arg1()
   })
 
-  $.fn.fadeIn = jest.fn().mockImplementation((arg0, arg1)  => {
-    const instances = $.mocks.fadeIn.mock.instances
-    instances[instances.length - 1].show()
-    if (typeof arg0 === 'function') arg0()
-    else if (typeof arg1 === 'function') arg1()
-  })
+  // $.fn.fadeIn = jest.fn().mockImplementation((arg0, arg1)  => {
+  //   const instances = $.mocks.fadeIn.mock.instances
+  //   instances[instances.length - 1].show()
+  //   if (typeof arg0 === 'function') arg0()
+  //   else if (typeof arg1 === 'function') arg1()
+  // })
 
   $.fn.fadeOut = jest.fn().mockImplementation((arg0, arg1)  => {
     const instances = $.mocks.fadeOut.mock.instances
