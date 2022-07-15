@@ -373,3 +373,6 @@ background-image: url("../img/fade.svg");
   margin-top: 6px;
   min-height: 29px;
 }
+.tabs>.btns button.btn {
+  display: inline-block;
+}
