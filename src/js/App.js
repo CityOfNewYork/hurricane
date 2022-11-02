@@ -35,6 +35,7 @@ class App extends FinderApp {
   constructor(content) {
     const centers = content.message('filter_centers')
     super({
+      mvt: true,
       title: content.message('banner_text'),
       splashOptions: {
         message: `<div class="orders">${content.message('splash_msg')}</div>`,
@@ -246,7 +247,8 @@ class App extends FinderApp {
     this.zoneLayer = new OlLayerVector({
       source: this.zoneSource,
       style: style.zone,
-      opacity: .35
+      opacity: .35,
+      zIndex: 10
     })
     this.map.addLayer(this.zoneLayer)
     this.popup.addLayer(this.zoneLayer)
