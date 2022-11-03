@@ -4861,8 +4861,10 @@ nyc-build-helper@^0.0.45:
     webpack "4.19.1"
     zip-a-folder "^1.1.0"
 
-nyc-lib@../nyc-lib/dist:
+nyc-lib@^1.4.69:
   version "1.4.69"
+  resolved "https://registry.yarnpkg.com/nyc-lib/-/nyc-lib-1.4.69.tgz#3dc697f1891a31b13db88094ceccd0e72242fff9"
+  integrity sha512-/Ykxf+fQa+L/jGGjYa8dvO6mn57+ZV8jFyXs3/TkGazSc5sGalW7CYiQcH1CrStACfORKQlFYCB8vZUw/XWKBA==
   dependencies:
     global "^4.4.0"
     isomorphic-fetch "^3.0.0"
